@@ -4,6 +4,7 @@
  */
 package br.unipar.programacaodesktop.pdvdesktop.APIs;
 
+import br.unipar.programacaodesktop.pdvdesktop.DTO.ClienteDto;
 import br.unipar.programacaodesktop.pdvdesktop.Util;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -20,8 +21,8 @@ public class Service {
      private static String UrlWebService = "http://127.0.0.1/Api";
     private static int sucesso = 200;
     
-    public static EnderecoDto buscaEndereco(String cep) throws Exception{
-        String urlChamada = UrlWebService + cep+ "/json";
+    public static ClienteDto buscaCliente(String path) throws Exception{
+        String urlChamada = UrlWebService + path;
         try{
         URL url = new URL(urlChamada);
         HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
@@ -31,11 +32,11 @@ public class Service {
             BufferedReader resposta = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
             String json = Util.converteJsontoString(resposta);
             Gson gson = new Gson();
-            EnderecoDto dto = gson.fromJson(json, EnderecoDto.class);
+            ClienteDto dto = gson.fromJson(json, ClienteDto.class);
             return dto;
         }
         catch(IOException | RuntimeException ex){
-            throw new Exception("Erro ao retornar endereco"+ex.getMessage()+"\n"+ex.getStackTrace());
+            throw new Exception("Erro ao retornar cliente"+ex.getMessage()+"\n"+ex.getStackTrace());
         }
     }
 }
