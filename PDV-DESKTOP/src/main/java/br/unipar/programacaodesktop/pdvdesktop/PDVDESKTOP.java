@@ -4,6 +4,8 @@
 
 package br.unipar.programacaodesktop.pdvdesktop;
 
+import br.unipar.programacaodesktop.pdvdesktop.View.Menu;
+
 /**
  *
  * @author felip
@@ -11,6 +13,6 @@ package br.unipar.programacaodesktop.pdvdesktop;
 public class PDVDESKTOP {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+       new Menu().setVisible(true);
     }
 }

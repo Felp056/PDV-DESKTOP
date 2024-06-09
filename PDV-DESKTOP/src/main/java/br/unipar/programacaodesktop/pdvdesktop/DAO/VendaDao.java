@@ -4,7 +4,15 @@ import br.unipar.programacaodesktop.pdvdesktop.Model.Venda;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -103,6 +111,30 @@ public class VendaDao extends GenericDao<Venda> {
                     ex.printStackTrace();
                 }
             }
+        }
+    }
+    
+    public void GerarRelVendaDetalhada(){
+     try {
+           String relatorioPath = "Relatorio\\RelatorioDeVendas.jasper"; 
+            JasperPrint jj = JasperFillManager.fillReport(relatorioPath, null ,conn);
+            JasperViewer viewr = new JasperViewer(jj, false);
+            viewr.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(VendaDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+    }
+    
+    public void GerarRelVenda(){
+     try {
+         Map<String, Object> parametros = new HashMap<>();
+            parametros.put("IdVenda", 0);
+           String relatorioPath = "Relatorio\\DetalhamentoDeVendas.jasper"; 
+            JasperPrint jj = JasperFillManager.fillReport(relatorioPath, parametros ,conn);
+            JasperViewer viewr = new JasperViewer(jj, false);
+            viewr.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(VendaDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 }
